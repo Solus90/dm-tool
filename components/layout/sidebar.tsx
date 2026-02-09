@@ -125,8 +125,9 @@ export function Sidebar() {
         <Button
           variant="outline"
           size="icon"
-          className="fixed left-4 top-4 z-40 lg:hidden"
+          className="fixed left-4 top-4 z-40 lg:hidden shadow-md"
           onClick={toggleSidebar}
+          aria-label="Open menu"
         >
           <Menu className="h-5 w-5" />
         </Button>

@@ -41,7 +41,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       
       {/* Main content area - scrollable, shifts right on desktop (lg:ml-64) */}
       <main className="flex-1 overflow-y-auto lg:ml-64 transition-all duration-300">
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto p-6 pt-20 lg:pt-6">
           {/* Page content renders here (from app router) */}
           {children}
         </div>

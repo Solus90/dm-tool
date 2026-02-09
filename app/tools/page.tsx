@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Download, Upload } from "lucide-react";
 import { downloadExport, uploadImport } from "@/lib/db/export";
 import { SpellLookup } from "@/components/tools/spell-lookup";
@@ -16,6 +18,7 @@ import { useRef } from "react";
 
 export default function ToolsPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [activeTab, setActiveTab] = useState("monsters");
 
   const handleExport = async () => {
     try {
@@ -60,57 +63,78 @@ export default function ToolsPage() {
         </p>
       </div>
 
-      <Tabs defaultValue="data" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 lg:grid-cols-7">
-          <TabsTrigger value="data">Data</TabsTrigger>
-          <TabsTrigger value="monsters">Monsters</TabsTrigger>
-          <TabsTrigger value="spells">Spells</TabsTrigger>
-          <TabsTrigger value="items">Magic Items</TabsTrigger>
-          <TabsTrigger value="weapons">Weapons</TabsTrigger>
-          <TabsTrigger value="armor">Armor</TabsTrigger>
-          <TabsTrigger value="conditions">Conditions</TabsTrigger>
-        </TabsList>
+      {/* Data Management Section */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Data Management</CardTitle>
+          <CardDescription>Backup or restore your campaign data</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <p className="text-sm text-muted-foreground mb-2">
+              Export all your data as a JSON file for backup.
+            </p>
+            <Button onClick={handleExport} className="w-full">
+              <Download className="h-4 w-4 mr-2" />
+              Export Data
+            </Button>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground mb-2">
+              Import a previously exported JSON file. This will replace all current data.
+            </p>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".json"
+              onChange={handleImport}
+              className="hidden"
+              id="import-file"
+            />
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload className="h-4 w-4 mr-2" />
+              Import Data
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
-        <TabsContent value="data" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Export & Import</CardTitle>
-              <CardDescription>Backup or restore your campaign data</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <p className="text-sm text-muted-foreground mb-2">
-                  Export all your data as a JSON file for backup.
-                </p>
-                <Button onClick={handleExport} className="w-full">
-                  <Download className="h-4 w-4 mr-2" />
-                  Export Data
-                </Button>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground mb-2">
-                  Import a previously exported JSON file. This will replace all current data.
-                </p>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept=".json"
-                  onChange={handleImport}
-                  className="hidden"
-                  id="import-file"
-                />
-                <Button
-                  variant="outline"
-                  className="w-full"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <Upload className="h-4 w-4 mr-2" />
-                  Import Data
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+      {/* Reference Tools Section */}
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Reference Tools</h2>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          {/* Mobile: Dropdown Select */}
+          <div className="lg:hidden mb-4">
+            <Select value={activeTab} onValueChange={setActiveTab}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="monsters">Monsters</SelectItem>
+                <SelectItem value="spells">Spells</SelectItem>
+                <SelectItem value="items">Magic Items</SelectItem>
+                <SelectItem value="weapons">Weapons</SelectItem>
+                <SelectItem value="armor">Armor</SelectItem>
+                <SelectItem value="conditions">Conditions</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Desktop: Tabs */}
+          <div className="hidden lg:block">
+            <TabsList className="grid w-full grid-cols-6">
+              <TabsTrigger value="monsters">Monsters</TabsTrigger>
+              <TabsTrigger value="spells">Spells</TabsTrigger>
+              <TabsTrigger value="items">Items</TabsTrigger>
+              <TabsTrigger value="weapons">Weapons</TabsTrigger>
+              <TabsTrigger value="armor">Armor</TabsTrigger>
+              <TabsTrigger value="conditions">Conditions</TabsTrigger>
+            </TabsList>
+          </div>
 
         <TabsContent value="monsters">
           <Card>
@@ -184,6 +208,7 @@ export default function ToolsPage() {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 }
