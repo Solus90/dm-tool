@@ -29,15 +29,15 @@ export function CombatantCard({
         isCurrentTurn && "ring-2 ring-primary"
       )}
     >
-      <CardContent className="p-4">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1 space-y-3">
-            <div className="flex items-center gap-2">
-              <h3 className="font-semibold text-lg">{combatant.name}</h3>
-              <Badge variant="outline">Init: {combatant.initiative}</Badge>
-              <Badge variant="secondary">AC: {combatant.ac}</Badge>
+      <CardContent className="p-3 md:p-4">
+        <div className="flex items-start justify-between gap-3 md:gap-4">
+          <div className="flex-1 space-y-3 min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="font-semibold text-base md:text-lg truncate">{combatant.name}</h3>
+              <Badge variant="outline" className="text-xs">Init: {combatant.initiative}</Badge>
+              <Badge variant="secondary" className="text-xs">AC: {combatant.ac}</Badge>
               {isCurrentTurn && (
-                <Badge variant="default">Current Turn</Badge>
+                <Badge variant="default" className="text-xs">Current Turn</Badge>
               )}
             </div>
 

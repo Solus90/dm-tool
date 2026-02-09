@@ -136,12 +136,12 @@ export function CombatTracker({ combatId }: CombatTrackerProps) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Combat Controls */}
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle>Combat Tracker</CardTitle>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <CardTitle className="text-lg md:text-xl">Combat Tracker</CardTitle>
             <div className="flex items-center gap-2">
               <Badge variant="outline">Round {round}</Badge>
               <Button variant="outline" size="icon" onClick={handleEndCombat}>
@@ -151,22 +151,24 @@ export function CombatTracker({ combatId }: CombatTrackerProps) {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="icon" onClick={handlePreviousTurn}>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center justify-center gap-2">
+              <Button variant="outline" size="icon" onClick={handlePreviousTurn} className="flex-shrink-0">
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <div className="text-center min-w-[200px]">
-                <p className="text-sm text-muted-foreground">Current Turn</p>
-                <p className="text-lg font-semibold">
+              <div className="text-center min-w-[150px] md:min-w-[200px]">
+                <p className="text-xs md:text-sm text-muted-foreground">Current Turn</p>
+                <p className="text-base md:text-lg font-semibold truncate px-2">
                   {currentCombatant?.name || "None"}
                 </p>
               </div>
-              <Button variant="outline" size="icon" onClick={handleNextTurn}>
+              <Button variant="outline" size="icon" onClick={handleNextTurn} className="flex-shrink-0">
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
-            <QuickAddDialog onAdd={handleAddCombatant} />
+            <div className="flex justify-center sm:justify-end">
+              <QuickAddDialog onAdd={handleAddCombatant} />
+            </div>
           </div>
         </CardContent>
       </Card>

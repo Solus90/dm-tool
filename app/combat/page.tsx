@@ -57,11 +57,11 @@ export default function CombatPage() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Combat Tracker</CardTitle>
+          <CardTitle className="text-xl md:text-2xl">Combat Tracker</CardTitle>
           <CardDescription>Start a new combat encounter</CardDescription>
         </CardHeader>
         <CardContent className="py-12 text-center">
-          <Button onClick={handleStartCombat} size="lg">
+          <Button onClick={handleStartCombat} size="lg" className="w-full sm:w-auto">
             <Sword className="h-5 w-5 mr-2" />
             Start New Combat
           </Button>

@@ -5,10 +5,10 @@ import { Sword, Sparkles, BookOpen, Users, ScrollText, Settings } from "lucide-r
 
 export default function Home() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">D&D 5e DM Tool</h1>
-        <p className="text-muted-foreground mt-2">
+        <h1 className="text-2xl md:text-3xl font-bold">D&D 5e DM Tool</h1>
+        <p className="text-sm md:text-base text-muted-foreground mt-2">
           Local-first dungeon master tool for tracking combat, managing campaigns, and organizing your D&D sessions.
         </p>
       </div>

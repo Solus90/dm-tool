@@ -42,15 +42,15 @@ export default function MagicItemsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Magic Items</h1>
-        <p className="text-muted-foreground mt-2">
+        <h1 className="text-2xl md:text-3xl font-bold">Magic Items</h1>
+        <p className="text-sm md:text-base text-muted-foreground mt-2">
           Track custom magic items, homebrew creations, and items given to players.
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 gap-4 md:gap-6">
         <MagicItemList
           items={magicItems || []}
           onEdit={handleEdit}

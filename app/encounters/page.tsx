@@ -61,15 +61,15 @@ export default function EncountersPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Encounters</h1>
-          <p className="text-muted-foreground mt-2">
+          <h1 className="text-2xl md:text-3xl font-bold">Encounters</h1>
+          <p className="text-sm md:text-base text-muted-foreground mt-2">
             Build and save encounter templates to quickly start combat.
           </p>
         </div>
-        <Button onClick={handleNewEncounter}>
+        <Button onClick={handleNewEncounter} className="w-full sm:w-auto">
           <Plus className="h-4 w-4 mr-2" />
           New Encounter
         </Button>

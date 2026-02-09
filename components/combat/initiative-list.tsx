@@ -26,7 +26,7 @@ export function InitiativeList({
   }
 
   return (
-    <ScrollArea className="h-[calc(100vh-300px)]">
+    <ScrollArea className="h-[calc(100vh-350px)] md:h-[calc(100vh-300px)]">
       <div className="space-y-2">
         {combatants.map((combatant, index) => (
           <CombatantCard
