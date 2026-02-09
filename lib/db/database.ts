@@ -28,6 +28,7 @@ import type {
   Character,
   Monster,
   NPC,
+  MagicItem,
   Encounter,
   ActiveCombat,
   Session,
@@ -51,6 +52,7 @@ export class DMDatabase extends Dexie {
   characters!: Table<Character, number>;
   monsters!: Table<Monster, number>;
   npcs!: Table<NPC, number>;
+  magic_items!: Table<MagicItem, number>;
   encounters!: Table<Encounter, number>;
   active_combat!: Table<ActiveCombat, number>;
   sessions!: Table<Session, number>;
@@ -58,7 +60,7 @@ export class DMDatabase extends Dexie {
   constructor() {
     super("DMDatabase"); // Database name (shows in DevTools > Application > IndexedDB)
 
-    // Define schema version 1
+    // Define schema version 1 (original schema)
     // Only specify indexes here, NOT all fields!
     // Format: "++primaryKey, index1, index2, ..."
     this.version(1).stores({
@@ -82,6 +84,12 @@ export class DMDatabase extends Dexie {
       
       // Sessions: indexed by campaign_id and date (for timeline sorting)
       sessions: "++id, campaign_id, date, created_at",
+    });
+
+    // Version 2: Add magic_items table
+    this.version(2).stores({
+      // Add magic_items table: indexed by campaign_id, name, rarity, and source
+      magic_items: "++id, campaign_id, name, rarity, source, created_at",
     });
   }
 }

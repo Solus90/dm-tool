@@ -149,6 +149,29 @@ export interface NPC {
   updated_at: number;
 }
 
+/**
+ * Magic Item
+ * 
+ * Stores custom magic items for the campaign. Can be homebrew items,
+ * items from books, or items given to players. Tracks rarity, attunement,
+ * and full descriptions.
+ */
+export interface MagicItem {
+  id?: number; // Auto-generated primary key
+  campaign_id: number; // Which campaign this item belongs to
+  name: string; // Item name (e.g., "Flametongue", "+1 Longsword")
+  type?: string; // Weapon, Armor, Potion, Ring, Wondrous Item, etc.
+  rarity?: "common" | "uncommon" | "rare" | "very rare" | "legendary" | "artifact"; // Item rarity
+  requires_attunement?: boolean; // Whether item needs attunement
+  attunement_requirements?: string; // e.g., "by a spellcaster", "by a cleric"
+  description?: string; // Full item description and properties
+  source?: "srd" | "homebrew" | "manual"; // Where this item came from
+  location?: string; // Where the item is (e.g., "In vault", "Given to Thorin")
+  notes?: string; // DM notes about the item
+  created_at: number; // Unix timestamp
+  updated_at: number; // Unix timestamp
+}
+
 export interface CombatantTemplate {
   id: string; // Temporary ID for template
   type: "monster" | "character" | "npc" | "custom";
@@ -245,6 +268,7 @@ export interface DatabaseExport {
   characters: Character[]; // All characters
   monsters: Monster[]; // All monsters
   npcs: NPC[]; // All NPCs
+  magic_items: MagicItem[]; // All magic items
   encounters: Encounter[]; // All saved encounters
   sessions: Session[]; // All session notes
 }

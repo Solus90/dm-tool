@@ -77,6 +77,45 @@ export interface Open5eSpell {
   circles?: string;
 }
 
+export interface Open5eMagicItem {
+  slug: string;
+  name: string;
+  type: string;
+  desc: string;
+  rarity: string;
+  requires_attunement?: string;
+  document__slug?: string;
+  document__title?: string;
+}
+
+export interface Open5eWeapon {
+  slug: string;
+  name: string;
+  category: string;
+  damage_dice?: string;
+  damage_type?: string;
+  weight?: string;
+  properties?: string[];
+  cost?: string;
+  desc?: string;
+  document__slug?: string;
+  document__title?: string;
+}
+
+export interface Open5eArmor {
+  slug: string;
+  name: string;
+  category: string;
+  armor_class?: string;
+  strength_requirement?: number;
+  stealth_disadvantage?: boolean;
+  weight?: string;
+  cost?: string;
+  desc?: string;
+  document__slug?: string;
+  document__title?: string;
+}
+
 export interface Open5eResponse<T> {
   count: number;
   next: string | null;
@@ -134,6 +173,87 @@ export async function getSpellBySlug(slug: string): Promise<Open5eSpell | null> 
     return (await response.json()) as Open5eSpell;
   } catch (error) {
     console.error("Error fetching spell:", error);
+    return null;
+  }
+}
+
+export async function searchMagicItems(query: string): Promise<Open5eMagicItem[]> {
+  try {
+    const response = await fetch(`${OPEN5E_BASE_URL}/magicitems/?search=${encodeURIComponent(query)}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch magic items");
+    }
+    const data = (await response.json()) as Open5eResponse<Open5eMagicItem>;
+    return data.results;
+  } catch (error) {
+    console.error("Error searching magic items:", error);
+    return [];
+  }
+}
+
+export async function getMagicItemBySlug(slug: string): Promise<Open5eMagicItem | null> {
+  try {
+    const response = await fetch(`${OPEN5E_BASE_URL}/magicitems/${slug}/`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch magic item");
+    }
+    return (await response.json()) as Open5eMagicItem;
+  } catch (error) {
+    console.error("Error fetching magic item:", error);
+    return null;
+  }
+}
+
+export async function searchWeapons(query: string): Promise<Open5eWeapon[]> {
+  try {
+    const response = await fetch(`${OPEN5E_BASE_URL}/weapons/?search=${encodeURIComponent(query)}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch weapons");
+    }
+    const data = (await response.json()) as Open5eResponse<Open5eWeapon>;
+    return data.results;
+  } catch (error) {
+    console.error("Error searching weapons:", error);
+    return [];
+  }
+}
+
+export async function getWeaponBySlug(slug: string): Promise<Open5eWeapon | null> {
+  try {
+    const response = await fetch(`${OPEN5E_BASE_URL}/weapons/${slug}/`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch weapon");
+    }
+    return (await response.json()) as Open5eWeapon;
+  } catch (error) {
+    console.error("Error fetching weapon:", error);
+    return null;
+  }
+}
+
+export async function searchArmor(query: string): Promise<Open5eArmor[]> {
+  try {
+    const response = await fetch(`${OPEN5E_BASE_URL}/armor/?search=${encodeURIComponent(query)}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch armor");
+    }
+    const data = (await response.json()) as Open5eResponse<Open5eArmor>;
+    return data.results;
+  } catch (error) {
+    console.error("Error searching armor:", error);
+    return [];
+  }
+}
+
+export async function getArmorBySlug(slug: string): Promise<Open5eArmor | null> {
+  try {
+    const response = await fetch(`${OPEN5E_BASE_URL}/armor/${slug}/`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch armor");
+    }
+    return (await response.json()) as Open5eArmor;
+  } catch (error) {
+    console.error("Error fetching armor:", error);
     return null;
   }
 }

@@ -6,6 +6,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Download, Upload } from "lucide-react";
 import { downloadExport, uploadImport } from "@/lib/db/export";
 import { SpellLookup } from "@/components/tools/spell-lookup";
+import { MonsterLookup } from "@/components/tools/monster-lookup";
+import { MagicItemLookup } from "@/components/tools/magic-item-lookup";
+import { WeaponLookup } from "@/components/tools/weapon-lookup";
+import { ArmorLookup } from "@/components/tools/armor-lookup";
 import { ConditionReference } from "@/components/tools/condition-reference";
 import { toast } from "sonner";
 import { useRef } from "react";
@@ -57,9 +61,13 @@ export default function ToolsPage() {
       </div>
 
       <Tabs defaultValue="data" className="w-full">
-        <TabsList>
-          <TabsTrigger value="data">Data Management</TabsTrigger>
-          <TabsTrigger value="spells">Spell Lookup</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3 lg:grid-cols-7">
+          <TabsTrigger value="data">Data</TabsTrigger>
+          <TabsTrigger value="monsters">Monsters</TabsTrigger>
+          <TabsTrigger value="spells">Spells</TabsTrigger>
+          <TabsTrigger value="items">Magic Items</TabsTrigger>
+          <TabsTrigger value="weapons">Weapons</TabsTrigger>
+          <TabsTrigger value="armor">Armor</TabsTrigger>
           <TabsTrigger value="conditions">Conditions</TabsTrigger>
         </TabsList>
 
@@ -104,6 +112,18 @@ export default function ToolsPage() {
           </Card>
         </TabsContent>
 
+        <TabsContent value="monsters">
+          <Card>
+            <CardHeader>
+              <CardTitle>Monster Lookup</CardTitle>
+              <CardDescription>Search D&D 5e SRD monsters from Open5e</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <MonsterLookup />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         <TabsContent value="spells">
           <Card>
             <CardHeader>
@@ -112,6 +132,42 @@ export default function ToolsPage() {
             </CardHeader>
             <CardContent>
               <SpellLookup />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="items">
+          <Card>
+            <CardHeader>
+              <CardTitle>Magic Item Lookup</CardTitle>
+              <CardDescription>Search D&D 5e SRD magic items from Open5e</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <MagicItemLookup />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="weapons">
+          <Card>
+            <CardHeader>
+              <CardTitle>Weapon Lookup</CardTitle>
+              <CardDescription>Search D&D 5e SRD weapons from Open5e</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <WeaponLookup />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="armor">
+          <Card>
+            <CardHeader>
+              <CardTitle>Armor Lookup</CardTitle>
+              <CardDescription>Search D&D 5e SRD armor from Open5e</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ArmorLookup />
             </CardContent>
           </Card>
         </TabsContent>

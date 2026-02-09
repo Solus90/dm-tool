@@ -45,6 +45,7 @@ import type {
   Character,
   Monster,
   NPC,
+  MagicItem,
   Encounter,
   ActiveCombat,
   Session,
@@ -84,8 +85,8 @@ export async function updateCampaign(id: number, data: Partial<Campaign>): Promi
 
 /**
  * Delete a campaign and ALL associated data
- * WARNING: This is destructive! All characters, monsters, encounters,
- * sessions, and active combat for this campaign will be permanently deleted.
+ * WARNING: This is destructive! All characters, monsters, NPCs, magic items,
+ * encounters, sessions, and active combat for this campaign will be permanently deleted.
  * Consider using exportCampaign() first to create a backup.
  */
 export async function deleteCampaign(id: number): Promise<void> {
@@ -95,6 +96,7 @@ export async function deleteCampaign(id: number): Promise<void> {
     db.characters.where("campaign_id").equals(id).delete(),
     db.monsters.where("campaign_id").equals(id).delete(),
     db.npcs.where("campaign_id").equals(id).delete(),
+    db.magic_items.where("campaign_id").equals(id).delete(),
     db.encounters.where("campaign_id").equals(id).delete(),
     db.active_combat.where("campaign_id").equals(id).delete(),
     db.sessions.where("campaign_id").equals(id).delete(),
@@ -225,6 +227,43 @@ export async function updateNPC(id: number, data: Partial<NPC>): Promise<void> {
 
 export async function deleteNPC(id: number): Promise<void> {
   await db.npcs.delete(id);
+}
+
+// ============================================================================
+// MAGIC ITEM HOOKS
+// ============================================================================
+export function useMagicItems(campaignId?: number) {
+  return useLiveQuery(
+    () =>
+      campaignId
+        ? db.magic_items.where("campaign_id").equals(campaignId).toArray()
+        : db.magic_items.toArray(),
+    [campaignId]
+  );
+}
+
+export function useMagicItem(id: number | undefined) {
+  return useLiveQuery(() => (id ? db.magic_items.get(id) : undefined), [id]);
+}
+
+export async function createMagicItem(data: Omit<MagicItem, "id" | "created_at" | "updated_at">): Promise<number> {
+  const now = Date.now();
+  return await db.magic_items.add({
+    ...data,
+    created_at: now,
+    updated_at: now,
+  });
+}
+
+export async function updateMagicItem(id: number, data: Partial<MagicItem>): Promise<void> {
+  await db.magic_items.update(id, {
+    ...data,
+    updated_at: Date.now(),
+  });
+}
+
+export async function deleteMagicItem(id: number): Promise<void> {
+  await db.magic_items.delete(id);
 }
 
 // ============================================================================

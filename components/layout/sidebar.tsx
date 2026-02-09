@@ -13,6 +13,7 @@ import {
   Menu,
   X,
   Sparkles,
+  Wand2,
 } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiceD20 } from "@fortawesome/free-solid-svg-icons";
@@ -31,6 +32,7 @@ const navigation = [
   { name: "Monsters", href: "/monsters", icon: BookOpen },
   { name: "Characters", href: "/characters", icon: Users },
   { name: "NPCs", href: "/npcs", icon: Users },
+  { name: "Magic Items", href: "/magic-items", icon: Wand2 },
   { name: "Sessions", href: "/sessions", icon: ScrollText },
   { name: "Tools", href: "/tools", icon: Settings },
 ];

@@ -39,11 +39,12 @@ const EXPORT_VERSION = "1.0.0";
  */
 export async function exportDatabase(): Promise<DatabaseExport> {
   // Fetch all tables in parallel for speed
-  const [campaigns, characters, monsters, npcs, encounters, sessions] = await Promise.all([
+  const [campaigns, characters, monsters, npcs, magic_items, encounters, sessions] = await Promise.all([
     db.campaigns.toArray(),
     db.characters.toArray(),
     db.monsters.toArray(),
     db.npcs.toArray(),
+    db.magic_items.toArray(),
     db.encounters.toArray(),
     db.sessions.toArray(),
   ]);
@@ -55,6 +56,7 @@ export async function exportDatabase(): Promise<DatabaseExport> {
     characters,
     monsters,
     npcs,
+    magic_items,
     encounters,
     sessions,
   };
@@ -72,11 +74,12 @@ export async function exportDatabase(): Promise<DatabaseExport> {
  */
 export async function exportCampaign(campaignId: number): Promise<DatabaseExport> {
   // Fetch campaign and all related data in parallel
-  const [campaign, characters, monsters, npcs, encounters, sessions] = await Promise.all([
+  const [campaign, characters, monsters, npcs, magic_items, encounters, sessions] = await Promise.all([
     db.campaigns.get(campaignId),
     db.characters.where("campaign_id").equals(campaignId).toArray(),
     db.monsters.where("campaign_id").equals(campaignId).toArray(),
     db.npcs.where("campaign_id").equals(campaignId).toArray(),
+    db.magic_items.where("campaign_id").equals(campaignId).toArray(),
     db.encounters.where("campaign_id").equals(campaignId).toArray(),
     db.sessions.where("campaign_id").equals(campaignId).toArray(),
   ]);
@@ -88,6 +91,7 @@ export async function exportCampaign(campaignId: number): Promise<DatabaseExport
     characters,
     monsters,
     npcs,
+    magic_items,
     encounters,
     sessions,
   };
@@ -115,6 +119,7 @@ export async function importDatabase(data: DatabaseExport): Promise<void> {
     db.characters.clear(),
     db.monsters.clear(),
     db.npcs.clear(),
+    db.magic_items.clear(),
     db.encounters.clear(),
     db.active_combat.clear(), // Clear active combat on import
     db.sessions.clear(),
@@ -128,6 +133,7 @@ export async function importDatabase(data: DatabaseExport): Promise<void> {
     db.characters.bulkAdd(data.characters),
     db.monsters.bulkAdd(data.monsters),
     db.npcs.bulkAdd(data.npcs),
+    db.magic_items.bulkAdd(data.magic_items || []), // Default to empty array for backwards compatibility
     db.encounters.bulkAdd(data.encounters),
     db.sessions.bulkAdd(data.sessions),
   ]);
