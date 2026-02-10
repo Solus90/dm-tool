@@ -56,7 +56,7 @@ export function StatBlock({ monster }: StatBlockProps) {
 
         <div>
           <h3 className="font-semibold mb-2">Ability Scores</h3>
-          <div className="grid grid-cols-6 gap-2 text-sm">
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-2 text-sm">
             <div className="text-center">
               <div className="font-semibold">STR</div>
               <div>{monster.stats.str}</div>

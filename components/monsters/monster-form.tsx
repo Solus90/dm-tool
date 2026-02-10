@@ -218,13 +218,14 @@ export function MonsterForm({ monsterId }: MonsterFormProps) {
           <CardTitle>Ability Scores</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             <div>
               <Label>STR</Label>
               <Input
                 type="number"
                 value={str}
                 onChange={(e) => setStr(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
             </div>
             <div>
@@ -233,6 +234,7 @@ export function MonsterForm({ monsterId }: MonsterFormProps) {
                 type="number"
                 value={dex}
                 onChange={(e) => setDex(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
             </div>
             <div>
@@ -241,6 +243,7 @@ export function MonsterForm({ monsterId }: MonsterFormProps) {
                 type="number"
                 value={con}
                 onChange={(e) => setCon(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
             </div>
             <div>
@@ -249,6 +252,7 @@ export function MonsterForm({ monsterId }: MonsterFormProps) {
                 type="number"
                 value={int}
                 onChange={(e) => setInt(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
             </div>
             <div>
@@ -257,6 +261,7 @@ export function MonsterForm({ monsterId }: MonsterFormProps) {
                 type="number"
                 value={wis}
                 onChange={(e) => setWis(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
             </div>
             <div>
@@ -265,6 +270,7 @@ export function MonsterForm({ monsterId }: MonsterFormProps) {
                 type="number"
                 value={cha}
                 onChange={(e) => setCha(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
             </div>
           </div>
